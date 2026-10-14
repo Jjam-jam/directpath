@@ -17,9 +17,9 @@ define('SITE_URL',   'http://localhost/directpath');
 // Do NOT use your normal Gmail password or commit real credentials.
 define('SMTP_HOST', 'smtp.gmail.com');
 define('SMTP_PORT', 587);
-define('SMTP_USERNAME', 'jellinamurillo08@gmail.com');
-define('SMTP_PASSWORD', 'cbrk kefc vhcs jikc');
-define('SMTP_FROM_EMAIL', 'jellinamurillo08@gmail.com');
+define('SMTP_USERNAME', getenv('SMTP_USERNAME') ?: '');
+define('SMTP_PASSWORD', getenv('SMTP_PASSWORD') ?: '');
+define('SMTP_FROM_EMAIL', getenv('SMTP_FROM_EMAIL') ?: '');
 define('SMTP_FROM_NAME', 'Directpath EMPS');
 define('SMTP_SECURE', 'tls');
 
