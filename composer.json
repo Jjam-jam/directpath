@@ -1,0 +1,9 @@
+{
+  "name": "directpath/emps",
+  "description": "Directpath EMPS dependencies",
+  "type": "project",
+  "require": {
+    "php": ">=8.0",
+    "phpmailer/phpmailer": "^6.9"
+  }
+}

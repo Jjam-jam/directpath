@@ -1,0 +1,65 @@
+/* A4 documents: the on-screen sheet and the printed page use the same size and layout. */
+@page { size: A4 portrait; margin: 0; }
+.a4-stage { background: #E9EBEF; padding: 20px 12px; overflow-x: auto; border-radius: 12px; margin-bottom: 16px; }
+.a4-sheet { width: 210mm; min-height: 297mm; margin: 0 auto 20px; background: #fff; box-sizing: border-box;
+            padding: 12mm 13mm; box-shadow: 0 4px 24px rgba(26,29,38,.12); position: relative; color: #1A1D26; }
+.a4-sheet .card { box-shadow: none !important; border: 1px solid #E5E7EB !important; margin-bottom: 10px; padding: 12px 14px; break-inside: avoid; }
+.a4-sheet .card-title { font-size: 12.5px !important; margin-bottom: 8px; }
+.a4-sheet table { font-size: 10.5px; }
+.a4-sheet thead th, .a4-sheet tbody td { padding: 6px 8px !important; }
+.a4-sheet table { display: table !important; white-space: normal !important; }
+.rpt-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; border-bottom: 3px solid #CD1E27; padding-bottom: 10px; margin-bottom: 14px; }
+.rpt-head .nm { font-size: 14px; font-weight: 700; }
+.rpt-head .ttl { font-size: 11.5px; color: #6B7280; }
+.rpt-head .meta { text-align: right; font-size: 10.5px; color: #6B7280; line-height: 1.5; }
+.rpt-foot { margin-top: 12px; padding-top: 8px; border-top: 1px solid #E5E7EB; font-size: 10px; color: #6B7280; display: flex; justify-content: space-between; }
+@media print {
+  html, body { background: #fff !important; margin: 0 !important; padding: 0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  *, *::before, *::after { scrollbar-width: none !important; }
+  *::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
+  .sidebar, .topbar, .no-print { display: none !important; }
+  .main-content { margin: 0 !important; width: 100% !important; }
+  .page-body { padding: 0 !important; }
+  .a4-stage { background: none !important; padding: 0 !important; margin: 0 !important; overflow: visible !important; border-radius: 0 !important; }
+  .a4-sheet { box-shadow: none !important; margin: 0 !important; width: 210mm !important; min-height: 0 !important; zoom: 1 !important; }
+}
+
+/* Named page so reports get 8mm printable margins without affecting payslips / COE (margin 0). */
+@page rpt { size: A4 landscape; margin: 8mm; }
+.rpt-fluid { page: rpt; }
+
+/* ============================================================
+   REPORT MODULES (.rpt-fluid)
+   Screen : sheet fills the available width, no horizontal bar, tables wrap to fit.
+   Print  : content fills the printable area of the page; wide tables are scaled to fit.
+   ============================================================ */
+.rpt-fluid { overflow: visible !important; padding: 0 !important; background: none !important; max-width: 100%; }
+.rpt-fluid .a4-sheet { width: 100% !important; max-width: 100% !important; min-height: 0 !important;
+                       margin: 0 0 16px !important; padding: 16px 18px; overflow: hidden; border-radius: 12px; }
+.rpt-fluid .table-wrapper, .rpt-fluid .table-responsive { overflow: visible !important; width: 100%; }
+.rpt-fluid table { width: 100% !important; min-width: 0 !important; table-layout: auto; display: table !important; white-space: normal !important; }
+.rpt-fluid th, .rpt-fluid td { white-space: normal !important; overflow-wrap: anywhere; word-break: normal; }
+.rpt-fluid thead th { letter-spacing: 0; }
+.rpt-fluid .row { margin-left: 0; margin-right: 0; }
+.rpt-fluid img, .rpt-fluid canvas, .rpt-fluid svg { max-width: 100%; }
+.rpt-fluid .rpt-head, .rpt-fluid .rpt-foot { flex-wrap: wrap; }
+html:has(.rpt-fluid), body:has(.rpt-fluid) { overflow-x: hidden; }
+.main-content:has(.rpt-fluid), .page-body:has(.rpt-fluid) { min-width: 0; max-width: 100%; overflow-x: hidden; }
+
+@media print {
+  html, body { width: auto !important; height: auto !important; overflow: visible !important; }
+  .main-content, .page-body { margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: none !important; overflow: visible !important; }
+  .rpt-fluid { width: 100% !important; }
+  .rpt-fluid .a4-sheet { width: 100% !important; max-width: none !important; padding: 3mm !important; border-radius: 0 !important; zoom: var(--print-zoom, 1) !important;
+                         margin: 0 !important; overflow: visible !important; box-shadow: none !important; }
+  .rpt-fluid .card { padding: 6px 8px; margin-bottom: 8px; break-inside: auto; border-radius: 0 !important; }
+  .rpt-fluid .row { display: flex; flex-wrap: wrap !important; }
+  .rpt-fluid .row > [class*="col-"] { min-width: 0; }
+  .rpt-fluid table { width: 100% !important; font-size: 10px !important; table-layout: fixed; page-break-inside: auto; }
+  .rpt-fluid th, .rpt-fluid td { min-width: 0; overflow-wrap: anywhere; word-break: normal; vertical-align: top; }
+  .rpt-fluid thead { display: table-header-group; }
+  .rpt-fluid tfoot { display: table-footer-group; }
+  .rpt-fluid tr, .rpt-fluid img { break-inside: avoid; page-break-inside: avoid; }
+  .rpt-fluid thead th, .rpt-fluid tbody td { padding: 4px 6px !important; font-size: 10px !important; }
+  .rpt-fluid .badge { font-size: 8px !important; padding: 1px 5px !important; }
+}

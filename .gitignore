@@ -1,0 +1,3 @@
+# Environment-specific database credentials
+/config/database.local.php
+/config/database.production.php

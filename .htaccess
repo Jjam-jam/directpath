@@ -1,0 +1,15 @@
+Options -Indexes
+DirectoryIndex index.php
+
+# Prevent direct access to config files
+<Files "config.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Security headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
